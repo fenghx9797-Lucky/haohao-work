@@ -16,14 +16,15 @@
 </template>
 
 <script setup>
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
 
 const navItems = [
-  { label: '点单', to: '/' },
-  { label: '购物车', to: '/cart' },
-  { label: '订单', to: '/orders' }
+  { label: siteConfig.nav.home, to: '/menu' },
+  { label: siteConfig.nav.cart, to: '/cart' },
+  { label: siteConfig.nav.orders, to: '/orders' }
 ]
 </script>
 
