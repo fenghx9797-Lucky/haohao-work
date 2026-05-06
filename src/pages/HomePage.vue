@@ -1,14 +1,14 @@
 <template>
   <div class="menu-container">
     <header class="glass-header">
-      <h1>点单助手</h1>
-      <p>精选各大品牌热销单品</p>
+      <h1>{{ siteConfig.home.title }}</h1>
+      <p>{{ siteConfig.home.description }}</p>
     </header>
 
     <div class="main-content">
       <aside class="sidebar">
         <div
-          v-for="cat in categories"
+          v-for="cat in productCategories"
           :key="cat.name"
           :class="['category-item', activeCategory === cat.name ? 'active' : '']"
           @click="activeCategory = cat.name"
@@ -26,7 +26,7 @@
               <div class="text-content">
                 <h4>{{ item.name }}</h4>
                 <p>{{ item.desc }}</p>
-                <span class="price">¥{{ item.price }}</span>
+                <span class="price">{{ siteConfig.labels.sponsoredPrice }}</span>
               </div>
             </div>
             <button class="add-btn" @click="cartStore.addToCart(item)">+</button>
@@ -42,9 +42,9 @@
     >
       <div class="cart-info">
         <span class="badge">{{ cartStore.totalCount }}</span>
-        <span>已选商品 ¥{{ cartStore.totalPrice }}</span>
+        <span>{{ siteConfig.labels.selectedSummary }} {{ siteConfig.labels.sponsoredPrice }}</span>
       </div>
-      <button class="checkout-btn">去结算</button>
+      <button class="checkout-btn">{{ siteConfig.labels.checkoutAction }}</button>
     </div>
   </div>
 </template>
@@ -52,54 +52,15 @@
 <script setup>
 import { computed, ref } from 'vue'
 
+import { productCategories } from '../config/products'
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
-const activeCategory = ref('咖啡')
-
-const categories = [
-  {
-    name: '咖啡',
-    brands: [
-      {
-        brandName: '瑞幸咖啡',
-        items: [
-          { id: 101, name: '生椰拿铁', desc: '年度爆款，清甜生椰风味', price: 18, icon: '🥥' },
-          { id: 102, name: '陨石拿铁', desc: '黑糖波波与咖啡的完美结合', price: 20, icon: '☄️' }
-        ]
-      },
-      {
-        brandName: '星巴克',
-        items: [
-          { id: 103, name: '燕麦拿铁', desc: '坚果香气，纯植物奶健康选择', price: 32, icon: '🌾' },
-          { id: 104, name: '焦糖玛奇朵', desc: '经典香甜，层次分明', price: 35, icon: '🍯' }
-        ]
-      }
-    ]
-  },
-  {
-    name: '奶茶',
-    brands: [
-      {
-        brandName: '霸王茶姬',
-        items: [
-          { id: 201, name: '伯牙绝弦', desc: '茉莉雪芽，清爽回甘', price: 20, icon: '🌸' },
-          { id: 202, name: '青沫观音', desc: '铁观音茶底，奶香醇厚', price: 18, icon: '🍃' }
-        ]
-      },
-      {
-        brandName: '喜茶',
-        items: [
-          { id: 203, name: '多肉葡萄', desc: '经典果茶，新鲜手剥果粒', price: 28, icon: '🍇' },
-          { id: 204, name: '芝芝莓莓', desc: '超厚芝士奶盖，草莓清香', price: 29, icon: '🍓' }
-        ]
-      }
-    ]
-  }
-]
+const activeCategory = ref(productCategories[0]?.name || '')
 
 const currentProducts = computed(() => {
-  return categories.find((category) => category.name === activeCategory.value)?.brands || []
+  return productCategories.find((category) => category.name === activeCategory.value)?.brands || []
 })
 </script>
 
@@ -107,7 +68,7 @@ const currentProducts = computed(() => {
 .menu-container {
   min-height: 100%;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding-bottom: 88px;
+  padding-bottom: 96px;
 }
 
 .glass-header {
@@ -133,7 +94,9 @@ const currentProducts = computed(() => {
 
 .main-content {
   display: flex;
-  min-height: calc(100vh - 210px);
+  min-height: calc(100vh - 188px);
+  min-height: calc(100svh - 188px);
+  min-height: calc(100dvh - 188px);
 }
 
 .sidebar {
@@ -210,7 +173,7 @@ const currentProducts = computed(() => {
 
 .price {
   font-weight: 700;
-  color: #ff3b30;
+  color: #ff6a8b;
 }
 
 .add-btn {
@@ -227,15 +190,18 @@ const currentProducts = computed(() => {
 
 .float-cart {
   position: fixed;
-  bottom: 92px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 398px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(60px + env(safe-area-inset-bottom));
+  left: max(16px, env(safe-area-inset-left));
+  transform: none;
+  width: auto;
+  max-width: 430px;
   height: 60px;
+  margin: 0 auto;
   padding: 0 20px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.74);
   color: white;
+  z-index: 20;
 }
 
 .cart-info {
@@ -257,11 +223,5 @@ const currentProducts = computed(() => {
   padding: 2px 8px;
   border-radius: 10px;
   margin-right: 8px;
-}
-
-@media (max-width: 480px) {
-  .float-cart {
-    bottom: 86px;
-  }
 }
 </style>
