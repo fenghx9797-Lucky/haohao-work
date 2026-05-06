@@ -19,10 +19,11 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-import openingCover from '../assets/opening-cover-small.jpg'
+import openingCoverBase64 from '../assets/opening-cover-small.b64.txt?raw'
 import { siteConfig } from '../config/site'
 
 const router = useRouter()
+const openingCover = `data:image/jpeg;base64,${openingCoverBase64.trim()}`
 
 const buttonStyle = computed(() => ({
   background: `linear-gradient(135deg, ${siteConfig.splash.buttonColor} 0%, ${siteConfig.splash.buttonColorDeep} 100%)`,
