@@ -19,7 +19,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-import openingCover from '../assets/opening-cover.jpg'
+import openingCover from '../assets/opening-cover-small.jpg'
 import { siteConfig } from '../config/site'
 
 const router = useRouter()
