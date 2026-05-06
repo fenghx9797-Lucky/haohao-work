@@ -22,7 +22,7 @@
       </div>
       <div class="detail-row">
         <span>订单金额</span>
-        <strong>¥{{ lastOrder.totalPrice }}</strong>
+        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
       </div>
       <div class="detail-row">
         <span>下单时间</span>
@@ -34,12 +34,12 @@
       <h2>本次订单</h2>
       <div v-for="item in lastOrder.items" :key="item.id" class="items-row">
         <span>{{ item.name }} x {{ item.quantity }}</span>
-        <strong>¥{{ item.price * item.quantity }}</strong>
+        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
       </div>
     </section>
 
     <div class="success-actions">
-      <RouterLink to="/" class="secondary-button">继续点单</RouterLink>
+      <RouterLink to="/menu" class="secondary-button">继续点单</RouterLink>
       <RouterLink to="/orders" class="primary-button action-button">查看订单</RouterLink>
     </div>
   </section>
@@ -48,6 +48,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
@@ -62,7 +63,7 @@ const { lastOrder } = storeToRefs(cartStore)
 
 .success-card,
 .detail-card,
-.items-card {
+items-card {
   padding: 20px;
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 251, 248, 0.94));
