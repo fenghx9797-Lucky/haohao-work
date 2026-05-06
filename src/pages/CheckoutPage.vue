@@ -63,7 +63,7 @@ const { lastOrder } = storeToRefs(cartStore)
 
 .success-card,
 .detail-card,
-items-card {
+.items-card {
   padding: 20px;
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 251, 248, 0.94));
