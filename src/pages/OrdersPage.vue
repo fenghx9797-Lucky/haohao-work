@@ -21,7 +21,7 @@
       </div>
       <div class="order-card__bottom">
         <span>取餐码 {{ lastOrder.pickupCode }}</span>
-        <strong>¥{{ lastOrder.totalPrice }}</strong>
+        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
       </div>
     </article>
 
@@ -39,7 +39,7 @@
       </div>
       <div class="order-card__bottom">
         <span>门店自取</span>
-        <strong>¥38</strong>
+        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
       </div>
     </article>
 
@@ -56,7 +56,7 @@
       </div>
       <div class="order-card__bottom">
         <span>品牌专区</span>
-        <strong>¥56</strong>
+        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
       </div>
     </article>
   </section>
@@ -65,6 +65,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
