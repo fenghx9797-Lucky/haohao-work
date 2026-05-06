@@ -2,14 +2,14 @@
   <div class="cart-page">
     <header class="page-header">
       <button @click="$router.back()" class="back-btn">←</button>
-      <h2>订单清单</h2>
+      <h2>{{ siteConfig.labels.cartTitle }}</h2>
     </header>
 
     <div v-if="cartStore.items.length" class="list-container">
       <div v-for="item in cartStore.items" :key="item.id" class="cart-item glass-card">
         <div class="item-detail">
           <h4>{{ item.name }}</h4>
-          <p>¥{{ item.price }} x {{ item.quantity }}</p>
+          <p>{{ siteConfig.labels.sponsoredPrice }} x {{ item.quantity }}</p>
         </div>
         <div class="item-actions">
           <button @click="cartStore.removeFromCart(item.id)">-</button>
@@ -20,16 +20,16 @@
     </div>
 
     <div v-else class="glass-card empty-state">
-      <p>购物车还是空的，先去挑一杯吧。</p>
+      <p>{{ siteConfig.labels.cartEmpty }}</p>
     </div>
 
     <div class="summary glass-card">
       <div class="total-bar">
         <span>共 {{ cartStore.totalCount }} 件</span>
-        <span class="total-price">合计: ¥{{ cartStore.totalPrice }}</span>
+        <span class="total-price">{{ siteConfig.labels.cartTotal }}: {{ siteConfig.labels.sponsoredPrice }}</span>
       </div>
       <button class="submit-btn" :disabled="!cartStore.totalCount" @click="handleConfirm">
-        确认并提交
+        {{ siteConfig.labels.cartSubmit }}
       </button>
     </div>
   </div>
@@ -38,6 +38,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
@@ -77,7 +78,7 @@ const handleConfirm = () => {
 }
 
 .list-container {
-  padding-bottom: 130px;
+  padding-bottom: 108px;
 }
 
 .glass-card {
@@ -130,11 +131,14 @@ const handleConfirm = () => {
 
 .summary {
   position: fixed;
-  bottom: 92px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 398px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(60px + env(safe-area-inset-bottom));
+  left: max(16px, env(safe-area-inset-left));
+  transform: none;
+  width: auto;
+  max-width: 430px;
+  margin: 0 auto;
+  z-index: 20;
 }
 
 .total-bar {
@@ -159,14 +163,8 @@ const handleConfirm = () => {
 }
 
 .total-price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #ff3b30;
-}
-
-@media (max-width: 480px) {
-  .summary {
-    bottom: 86px;
-  }
 }
 </style>
