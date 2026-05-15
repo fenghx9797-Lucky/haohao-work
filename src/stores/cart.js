@@ -40,11 +40,11 @@ export const useCartStore = defineStore('cart', {
       }
 
       const order = {
-        id: `OD${Date.now()}`,
+        id: `DM${Date.now()}`,
         items: this.items.map((item) => ({ ...item })),
         totalCount: this.totalCount,
         totalPrice: this.totalPrice,
-        status: '待制作',
+        status: '制作中',
         pickupCode: String(Date.now()).slice(-4),
         createdAt: new Date().toLocaleString('zh-CN', { hour12: false })
       }
