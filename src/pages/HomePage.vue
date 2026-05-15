@@ -16,14 +16,6 @@
           <span>{{ siteConfig.labels.treatTag }}</span>
         </div>
       </div>
-
-      <div class="menu-banner">
-        <div>
-          <strong>今日推荐</strong>
-          <p>奶香轻甜、果茶清爽、咖啡提神，心情款都帮你备好了。</p>
-        </div>
-        <span class="menu-banner__icon">🧋</span>
-      </div>
     </header>
 
     <section class="category-strip">
@@ -41,10 +33,7 @@
     <main class="brand-list">
       <section v-for="brand in currentProducts" :key="brand.brandName" class="brand-card">
         <div class="brand-card__head">
-          <div>
-            <h2>{{ brand.brandName }}</h2>
-            <p>本组饮品都走温柔治愈路线，适合今天的邓美丽。</p>
-          </div>
+          <h2>{{ brand.brandName }}</h2>
           <span class="brand-card__tag">热选</span>
         </div>
 
@@ -84,8 +73,8 @@
             <span class="floating-cart__badge">{{ cartStore.totalCount }}</span>
           </div>
           <div class="floating-cart__text">
-            <strong>购物车已吸附到底部</strong>
-            <span>共 {{ cartStore.totalCount }} 杯，合计 ￥{{ cartStore.totalPrice }}</span>
+            <span>共 {{ cartStore.totalCount }} 杯</span>
+            <strong>￥{{ cartStore.totalPrice }}</strong>
           </div>
         </div>
         <span class="floating-cart__action">{{ siteConfig.labels.checkoutAction }}</span>
@@ -156,8 +145,8 @@ watch(
   bottom: -24px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 205, 224, 0.55) 62%, rgba(255, 175, 203, 0.18));
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.92), rgba(242, 221, 224, 0.48) 62%, rgba(226, 204, 208, 0.16));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
   opacity: 0;
   animation: bubbleRise linear infinite;
 }
@@ -168,7 +157,7 @@ watch(
   z-index: 6;
   margin: -20px -16px 12px;
   padding: 20px 16px 14px;
-  background: linear-gradient(180deg, rgba(255, 244, 249, 0.96), rgba(255, 244, 249, 0.82));
+  background: linear-gradient(180deg, rgba(251, 247, 246, 0.96), rgba(251, 247, 246, 0.84));
   backdrop-filter: blur(14px);
 }
 
@@ -181,7 +170,7 @@ watch(
 
 .menu-header__eyebrow {
   margin: 0 0 6px;
-  color: #d46991;
+  color: #bd7e8d;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -189,14 +178,14 @@ watch(
 
 .menu-header h1 {
   margin: 0;
-  color: #6e4b5e;
+  color: #66555d;
   font-size: 26px;
   line-height: 1.2;
 }
 
 .menu-header__desc {
-  margin: 10px 0 0;
-  color: #8d6f7e;
+  margin: 8px 0 0;
+  color: #8d8184;
   font-size: 14px;
 }
 
@@ -207,46 +196,17 @@ watch(
   gap: 6px;
   padding: 12px 14px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 180, 206, 0.36);
-  color: #cc628a;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(226, 205, 207, 0.5);
+  color: #b47a88;
   font-size: 12px;
   font-weight: 700;
-  box-shadow: 0 10px 24px rgba(221, 145, 174, 0.14);
+  box-shadow: 0 10px 24px rgba(190, 173, 176, 0.1);
 }
 
 .mood-card__icon {
   font-size: 22px;
   animation: softFloat 3s ease-in-out infinite;
-}
-
-.menu-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 16px 18px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(255, 212, 228, 0.96), rgba(255, 239, 245, 0.98));
-  border: 1px solid rgba(255, 171, 198, 0.32);
-  box-shadow: 0 12px 26px rgba(224, 144, 175, 0.14);
-}
-
-.menu-banner strong {
-  color: #8f4f68;
-  font-size: 16px;
-}
-
-.menu-banner p {
-  margin: 6px 0 0;
-  color: #8f6d7d;
-  font-size: 13px;
-}
-
-.menu-banner__icon {
-  flex-shrink: 0;
-  font-size: 34px;
 }
 
 .category-strip {
@@ -265,15 +225,15 @@ watch(
   border: none;
   padding: 10px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  color: #9c7688;
+  background: rgba(255, 255, 255, 0.88);
+  color: #8f7d84;
   white-space: nowrap;
   font-weight: 700;
-  box-shadow: 0 8px 18px rgba(226, 150, 180, 0.12);
+  box-shadow: 0 8px 18px rgba(194, 182, 184, 0.1);
 }
 
 .category-pill--active {
-  background: linear-gradient(135deg, #ff9abc, #ff7ea9);
+  background: linear-gradient(135deg, #efb8c1, #d89ca7);
   color: #fff;
 }
 
@@ -286,15 +246,15 @@ watch(
 .brand-card {
   padding: 18px;
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 176, 203, 0.34);
-  box-shadow: 0 14px 32px rgba(220, 145, 174, 0.15);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  box-shadow: 0 14px 32px rgba(191, 178, 180, 0.1);
   backdrop-filter: blur(16px);
 }
 
 .brand-card__head {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 14px;
@@ -302,14 +262,8 @@ watch(
 
 .brand-card__head h2 {
   margin: 0;
-  color: #6f4b5d;
+  color: #66555d;
   font-size: 18px;
-}
-
-.brand-card__head p {
-  margin: 6px 0 0;
-  color: #997788;
-  font-size: 12px;
 }
 
 .brand-card__tag {
@@ -319,8 +273,8 @@ watch(
   min-width: 48px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #ffe2ed;
-  color: #cb648d;
+  background: #f7eded;
+  color: #b67987;
   font-size: 12px;
   font-weight: 700;
 }
@@ -331,9 +285,9 @@ watch(
   gap: 14px;
   padding: 16px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 244, 248, 0.92));
-  border: 1px solid rgba(255, 196, 216, 0.4);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 244, 242, 0.94));
+  border: 1px solid rgba(230, 212, 214, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
 .drink-card + .drink-card {
@@ -346,7 +300,7 @@ watch(
   display: grid;
   place-items: center;
   border-radius: 18px;
-  background: linear-gradient(135deg, #ffe0ec, #fff4f8);
+  background: linear-gradient(135deg, #f8eeed, #fffaf9);
   font-size: 28px;
 }
 
@@ -359,19 +313,19 @@ watch(
 
 .drink-card__title-row h3 {
   margin: 0;
-  color: #6a4c5c;
+  color: #67575e;
   font-size: 16px;
 }
 
 .drink-card__price {
-  color: #e85e8f;
+  color: #c97f90;
   font-size: 17px;
   font-weight: 800;
 }
 
 .drink-card__content p {
   margin: 6px 0 12px;
-  color: #937282;
+  color: #8f8285;
   font-size: 13px;
 }
 
@@ -387,8 +341,8 @@ watch(
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #fff0f6;
-  color: #cd668f;
+  background: #faf1f0;
+  color: #b57988;
   font-size: 12px;
   font-weight: 700;
 }
@@ -398,7 +352,7 @@ watch(
   border: none;
   padding: 10px 14px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ff9fc0, #ff7da8);
+  background: linear-gradient(135deg, #edb2bc, #d994a5);
   color: #fff;
   font-weight: 800;
   animation: breathe 2.8s ease-in-out infinite;
@@ -419,9 +373,9 @@ watch(
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  background: linear-gradient(135deg, rgba(255, 130, 170, 0.96), rgba(241, 99, 147, 0.98));
+  background: linear-gradient(135deg, rgba(229, 179, 188, 0.96), rgba(208, 152, 165, 0.98));
   color: #fff;
-  box-shadow: 0 18px 32px rgba(226, 103, 151, 0.34);
+  box-shadow: 0 16px 28px rgba(191, 171, 175, 0.22);
   z-index: 25;
 }
 
@@ -455,7 +409,7 @@ watch(
   padding: 0 6px;
   border-radius: 999px;
   background: #fff;
-  color: #ef5d90;
+  color: #cb7e8f;
   font-size: 11px;
   line-height: 20px;
   font-weight: 800;
@@ -468,13 +422,14 @@ watch(
   text-align: left;
 }
 
-.floating-cart__text strong {
-  font-size: 15px;
-}
-
 .floating-cart__text span {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.88);
+}
+
+.floating-cart__text strong {
+  font-size: 18px;
+  line-height: 1.1;
 }
 
 .floating-cart__action {
