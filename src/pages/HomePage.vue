@@ -11,10 +11,6 @@
           <h1>{{ siteConfig.home.title }}</h1>
           <p class="menu-header__desc">{{ siteConfig.home.description }}</p>
         </div>
-        <div class="mood-card">
-          <span class="mood-card__icon">🫧</span>
-          <span>{{ siteConfig.labels.treatTag }}</span>
-        </div>
       </div>
     </header>
 
@@ -42,11 +38,42 @@
           <div class="drink-card__content">
             <div class="drink-card__title-row">
               <h3>{{ item.name }}</h3>
-              <span class="drink-card__price">￥{{ item.price }}</span>
+              <span class="drink-card__price">{{ siteConfig.labels.priceText }}</span>
             </div>
             <p>{{ item.desc }}</p>
+
+            <div class="option-group">
+              <span class="option-group__title">{{ siteConfig.labels.specTitle }}</span>
+              <div class="option-chip-row">
+                <button
+                  v-for="size in item.sizes"
+                  :key="size.name"
+                  type="button"
+                  :class="['option-chip', getSelectedSize(item).name === size.name ? 'option-chip--active' : '']"
+                  @click="setSelectedSize(item, size)"
+                >
+                  {{ size.name }}
+                </button>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <span class="option-group__title">{{ siteConfig.labels.toppingTitle }}</span>
+              <div class="option-chip-row">
+                <button
+                  v-for="topping in item.toppings"
+                  :key="topping.name"
+                  type="button"
+                  :class="['option-chip', isToppingSelected(item, topping) ? 'option-chip--active' : '']"
+                  @click="toggleTopping(item, topping)"
+                >
+                  {{ topping.name }}
+                </button>
+              </div>
+            </div>
+
             <div class="drink-card__footer">
-              <span class="drink-card__badge">{{ siteConfig.labels.treatTag }}</span>
+              <span class="drink-card__badge">{{ getSelectionSummary(item) }}</span>
               <button
                 type="button"
                 class="add-button"
@@ -74,17 +101,16 @@
           </div>
           <div class="floating-cart__text">
             <span>共 {{ cartStore.totalCount }} 杯</span>
-            <strong>￥{{ cartStore.totalPrice }}</strong>
+            <strong>{{ siteConfig.labels.checkoutAction }}</strong>
           </div>
         </div>
-        <span class="floating-cart__action">{{ siteConfig.labels.checkoutAction }}</span>
       </button>
     </transition>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 
 import { productCategories } from '../config/products'
 import { siteConfig } from '../config/site'
@@ -93,6 +119,8 @@ import { useCartStore } from '../stores/cart'
 const cartStore = useCartStore()
 const activeCategory = ref(productCategories[0]?.name || '')
 const cartPulse = ref(false)
+const selectedSizes = reactive({})
+const selectedToppings = reactive({})
 
 const bubbles = [
   { id: 1, style: { left: '7%', animationDelay: '0s', animationDuration: '8.5s', width: '16px', height: '16px' } },
@@ -106,8 +134,41 @@ const currentProducts = computed(() => {
   return productCategories.find((category) => category.name === activeCategory.value)?.brands || []
 })
 
+const getSelectedSize = (item) => selectedSizes[item.id] || item.sizes[0]
+const getSelectedToppings = (item) => selectedToppings[item.id] || []
+
+const setSelectedSize = (item, size) => {
+  selectedSizes[item.id] = size
+}
+
+const isToppingSelected = (item, topping) => {
+  return getSelectedToppings(item).some((entry) => entry.name === topping.name)
+}
+
+const toggleTopping = (item, topping) => {
+  const current = [...getSelectedToppings(item)]
+  const exists = current.findIndex((entry) => entry.name === topping.name)
+
+  if (exists > -1) {
+    current.splice(exists, 1)
+  } else {
+    current.push(topping)
+  }
+
+  selectedToppings[item.id] = current
+}
+
+const getSelectionSummary = (item) => {
+  const size = getSelectedSize(item).name
+  const toppings = getSelectedToppings(item).map((entry) => entry.name)
+  return toppings.length ? `${size} · ${toppings.join('、')}` : size
+}
+
 const handleAdd = (item) => {
-  cartStore.addToCart(item)
+  cartStore.addToCart(item, {
+    selectedSize: getSelectedSize(item),
+    selectedToppings: getSelectedToppings(item)
+  })
 }
 
 watch(
@@ -130,7 +191,7 @@ watch(
 .menu-page {
   position: relative;
   min-height: 100%;
-  padding-bottom: 112px;
+  padding-bottom: 132px;
 }
 
 .bubble-layer {
@@ -163,7 +224,7 @@ watch(
 
 .menu-header__top {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   align-items: start;
 }
@@ -187,26 +248,6 @@ watch(
   margin: 8px 0 0;
   color: #8d8184;
   font-size: 14px;
-}
-
-.mood-card {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 14px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(226, 205, 207, 0.5);
-  color: #b47a88;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 10px 24px rgba(190, 173, 176, 0.1);
-}
-
-.mood-card__icon {
-  font-size: 22px;
-  animation: softFloat 3s ease-in-out infinite;
 }
 
 .category-strip {
@@ -319,7 +360,7 @@ watch(
 
 .drink-card__price {
   color: #c97f90;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -329,11 +370,45 @@ watch(
   font-size: 13px;
 }
 
+.option-group + .option-group {
+  margin-top: 10px;
+}
+
+.option-group__title {
+  display: block;
+  margin-bottom: 8px;
+  color: #9a8a90;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.option-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-chip {
+  border: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f8efee;
+  color: #8e7a82;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.option-chip--active {
+  background: linear-gradient(135deg, #efb8c1, #d89ca7);
+  color: #fff;
+}
+
 .drink-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  margin-top: 12px;
 }
 
 .drink-card__badge {
@@ -361,7 +436,7 @@ watch(
 .floating-cart {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
-  bottom: calc(70px + env(safe-area-inset-bottom));
+  bottom: calc(92px + env(safe-area-inset-bottom));
   left: max(16px, env(safe-area-inset-left));
   width: auto;
   max-width: 398px;
@@ -376,7 +451,7 @@ watch(
   background: linear-gradient(135deg, rgba(229, 179, 188, 0.96), rgba(208, 152, 165, 0.98));
   color: #fff;
   box-shadow: 0 16px 28px rgba(191, 171, 175, 0.22);
-  z-index: 25;
+  z-index: 20;
 }
 
 .floating-cart__main {
@@ -428,17 +503,8 @@ watch(
 }
 
 .floating-cart__text strong {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.1;
-}
-
-.floating-cart__action {
-  flex-shrink: 0;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.2);
-  font-size: 13px;
-  font-weight: 800;
 }
 
 .floating-cart--pulse {
