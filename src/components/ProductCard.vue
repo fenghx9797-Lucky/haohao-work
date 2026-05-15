@@ -9,7 +9,7 @@
         <p>{{ product.desc }}</p>
       </div>
       <div class="product-card__footer">
-        <strong>¥{{ product.price }}</strong>
+        <strong>￥{{ product.price }}</strong>
         <button type="button" class="primary-button" @click="$emit('add', product)">
           加入购物车
         </button>
