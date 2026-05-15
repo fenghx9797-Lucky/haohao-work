@@ -3,8 +3,8 @@
     <div class="success-card">
       <div class="success-mark">✓</div>
       <p class="success-eyebrow">下单成功</p>
-      <h1>饮品已经加入制作队列</h1>
-      <p class="success-desc">预计 12 分钟可取餐，到店后报取餐码即可。</p>
+      <h1>奶茶已经加入制作队列</h1>
+      <p class="success-desc">预计 12 分钟左右可取餐，到店后报取餐码就可以啦。</p>
     </div>
 
     <section v-if="lastOrder" class="detail-card">
@@ -18,11 +18,11 @@
       </div>
       <div class="detail-row">
         <span>商品数量</span>
-        <strong>{{ lastOrder.totalCount }} 件</strong>
+        <strong>{{ lastOrder.totalCount }} 杯</strong>
       </div>
       <div class="detail-row">
         <span>订单金额</span>
-        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
+        <strong>￥{{ lastOrder.totalPrice }}</strong>
       </div>
       <div class="detail-row">
         <span>下单时间</span>
@@ -31,10 +31,10 @@
     </section>
 
     <section v-if="lastOrder" class="items-card">
-      <h2>本次订单</h2>
+      <h2>本次饮品</h2>
       <div v-for="item in lastOrder.items" :key="item.id" class="items-row">
         <span>{{ item.name }} x {{ item.quantity }}</span>
-        <strong>{{ siteConfig.labels.sponsoredPrice }}</strong>
+        <strong>￥{{ item.price * item.quantity }}</strong>
       </div>
     </section>
 
@@ -48,7 +48,6 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
-import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
@@ -66,26 +65,28 @@ const { lastOrder } = storeToRefs(cartStore)
 .items-card {
   padding: 20px;
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 251, 248, 0.94));
-  border: 1px solid rgba(97, 154, 113, 0.12);
-  box-shadow: 0 12px 30px rgba(66, 110, 76, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 176, 203, 0.34);
+  box-shadow: 0 14px 32px rgba(220, 145, 174, 0.15);
+  backdrop-filter: blur(14px);
 }
 
 .success-mark {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #38b26e, #4fd98f);
+  background: linear-gradient(135deg, #ff9abd, #ff79a6);
   color: #fff;
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 800;
+  box-shadow: 0 12px 24px rgba(239, 115, 163, 0.24);
 }
 
 .success-eyebrow {
   margin: 16px 0 8px;
-  color: #3f8f5f;
+  color: #d0658f;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -94,11 +95,12 @@ const { lastOrder } = storeToRefs(cartStore)
 .success-card h1,
 .items-card h2 {
   margin: 0;
+  color: #6d4c5b;
 }
 
 .success-desc {
   margin: 10px 0 0;
-  color: #587164;
+  color: #896c7b;
 }
 
 .detail-card,
@@ -117,12 +119,12 @@ const { lastOrder } = storeToRefs(cartStore)
 
 .detail-row span,
 .items-row span {
-  color: #6b7d74;
+  color: #8b6d7d;
 }
 
 .pickup-code {
-  color: #2c7a4b;
-  font-size: 22px;
+  color: #ea5f90;
+  font-size: 24px;
 }
 
 .success-actions {
@@ -142,8 +144,8 @@ const { lastOrder } = storeToRefs(cartStore)
 }
 
 .secondary-button {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(86, 114, 98, 0.16);
-  color: #31483c;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 177, 203, 0.36);
+  color: #8b6478;
 }
 </style>
