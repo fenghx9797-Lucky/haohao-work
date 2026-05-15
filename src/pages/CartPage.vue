@@ -3,7 +3,7 @@
     <header class="cart-header">
       <button type="button" @click="$router.back()" class="back-btn">‹</button>
       <div>
-        <p class="cart-header__eyebrow">专属购物车</p>
+        <p class="cart-header__eyebrow">购物车</p>
         <h2>{{ siteConfig.labels.cartTitle }}</h2>
       </div>
     </header>
@@ -22,7 +22,6 @@
           </div>
           <p>{{ siteConfig.labels.treatTag }} · 单价 ￥{{ item.price }}</p>
           <div class="cart-item-card__footer">
-            <span class="cart-item-card__tag">温柔加购中</span>
             <div class="item-actions">
               <button type="button" @click="cartStore.removeFromCart(item.id)">-</button>
               <span>{{ item.quantity }}</span>
@@ -38,11 +37,6 @@
       <h3>还没有选中饮品</h3>
       <p>{{ siteConfig.labels.cartEmpty }}</p>
     </section>
-
-    <div v-if="cartStore.items.length" class="cart-tip-card">
-      <span>🫧</span>
-      <p>购物车已吸附到底部，确认后就能生成专属取餐码。</p>
-    </div>
 
     <transition name="summary-dock">
       <section v-if="cartStore.totalCount" class="summary-dock">
@@ -91,14 +85,14 @@ const handleConfirm = () => {
   gap: 12px;
   padding: 18px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 176, 203, 0.36);
-  box-shadow: 0 14px 32px rgba(220, 145, 174, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  box-shadow: 0 14px 32px rgba(191, 178, 180, 0.1);
 }
 
 .cart-header__eyebrow {
   margin: 0 0 4px;
-  color: #d06790;
+  color: #b97d8c;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -106,7 +100,7 @@ const handleConfirm = () => {
 
 .cart-header h2 {
   margin: 0;
-  color: #6b4c5c;
+  color: #67575e;
 }
 
 .back-btn {
@@ -114,8 +108,8 @@ const handleConfirm = () => {
   height: 38px;
   border: none;
   border-radius: 14px;
-  background: #fff0f6;
-  color: #ca638a;
+  background: #faf2f1;
+  color: #b67c8a;
   font-size: 28px;
   line-height: 1;
 }
@@ -131,9 +125,9 @@ const handleConfirm = () => {
   gap: 14px;
   padding: 16px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 243, 247, 0.92));
-  border: 1px solid rgba(255, 188, 210, 0.42);
-  box-shadow: 0 12px 26px rgba(222, 148, 177, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 244, 242, 0.94));
+  border: 1px solid rgba(230, 212, 214, 0.44);
+  box-shadow: 0 12px 26px rgba(191, 178, 180, 0.1);
 }
 
 .cart-item-card__icon {
@@ -142,7 +136,7 @@ const handleConfirm = () => {
   display: grid;
   place-items: center;
   border-radius: 18px;
-  background: linear-gradient(135deg, #ffe3ee, #fff5f8);
+  background: linear-gradient(135deg, #f8eeed, #fffaf9);
   font-size: 28px;
 }
 
@@ -160,39 +154,29 @@ const handleConfirm = () => {
 }
 
 .cart-item-card__row h3 {
-  color: #6c4d5d;
+  color: #67575e;
   font-size: 16px;
 }
 
 .cart-item-card__row strong {
-  color: #ea5e90;
+  color: #c97f90;
   font-size: 17px;
 }
 
 .cart-item-card__content p {
   margin: 8px 0 12px;
-  color: #977585;
+  color: #8f8285;
   font-size: 13px;
-}
-
-.cart-item-card__tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #fff1f6;
-  color: #cd658d;
-  font-size: 12px;
-  font-weight: 700;
 }
 
 .item-actions {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
   padding: 6px;
   border-radius: 999px;
-  background: rgba(255, 241, 247, 0.98);
+  background: rgba(250, 242, 241, 0.98);
 }
 
 .item-actions button {
@@ -200,17 +184,17 @@ const handleConfirm = () => {
   height: 30px;
   border-radius: 50%;
   border: none;
-  background: linear-gradient(135deg, #ff98bb, #ff7da8);
+  background: linear-gradient(135deg, #edb2bc, #d994a5);
   color: #fff;
   font-size: 18px;
   line-height: 1;
-  box-shadow: 0 8px 16px rgba(240, 118, 165, 0.24);
+  box-shadow: 0 8px 16px rgba(191, 171, 175, 0.2);
 }
 
 .item-actions span {
   min-width: 18px;
   text-align: center;
-  color: #7b5b6a;
+  color: #77666d;
   font-weight: 700;
 }
 
@@ -218,9 +202,9 @@ const handleConfirm = () => {
   padding: 34px 24px;
   border-radius: 28px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 176, 203, 0.36);
-  box-shadow: 0 14px 32px rgba(220, 145, 174, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  box-shadow: 0 14px 32px rgba(191, 178, 180, 0.1);
 }
 
 .empty-state__icon {
@@ -229,28 +213,12 @@ const handleConfirm = () => {
 
 .empty-state h3 {
   margin: 14px 0 8px;
-  color: #6a4d5a;
+  color: #67575e;
 }
 
 .empty-state p {
   margin: 0;
-  color: #8e7080;
-}
-
-.cart-tip-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: rgba(255, 241, 247, 0.94);
-  border: 1px solid rgba(255, 188, 210, 0.38);
-  color: #9a6f81;
-}
-
-.cart-tip-card p {
-  margin: 0;
-  font-size: 13px;
+  color: #8d7f83;
 }
 
 .summary-dock {
@@ -267,9 +235,9 @@ const handleConfirm = () => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: rgba(255, 251, 253, 0.94);
-  border: 1px solid rgba(255, 176, 203, 0.36);
-  box-shadow: 0 18px 36px rgba(221, 140, 171, 0.22);
+  background: rgba(255, 253, 252, 0.96);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  box-shadow: 0 18px 36px rgba(191, 178, 180, 0.14);
   backdrop-filter: blur(14px);
   z-index: 25;
 }
@@ -280,18 +248,18 @@ const handleConfirm = () => {
 }
 
 .summary-dock__meta span {
-  color: #a47b8c;
+  color: #9a898f;
   font-size: 12px;
 }
 
 .summary-dock__meta strong {
-  color: #e85f90;
+  color: #c87f90;
   font-size: 22px;
   line-height: 1.1;
 }
 
 .summary-dock__meta small {
-  color: #947180;
+  color: #8c7c82;
 }
 
 .submit-btn {
@@ -299,7 +267,7 @@ const handleConfirm = () => {
   border: none;
   padding: 14px 18px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ff99bc, #ff7ca7);
+  background: linear-gradient(135deg, #edb2bc, #d994a5);
   color: #fff;
   font-size: 15px;
   font-weight: 800;
