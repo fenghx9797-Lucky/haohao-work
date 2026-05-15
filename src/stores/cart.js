@@ -19,7 +19,8 @@ export const useCartStore = defineStore('cart', {
     addToCart(product, selection = {}) {
       const selectedSize = selection.selectedSize || product.sizes?.[0] || { name: '默认', price: product.price }
       const selectedToppings = selection.selectedToppings || []
-      const cartKey = createCartKey(product.id, selectedSize.name, selectedToppings.map((item) => item.name))
+      const toppingNames = selectedToppings.map((item) => item.name)
+      const cartKey = createCartKey(product.id, selectedSize.name, toppingNames)
       const existingItem = this.items.find((item) => item.cartKey === cartKey)
       const toppingTotal = selectedToppings.reduce((sum, item) => sum + item.price, 0)
       const finalPrice = selectedSize.price + toppingTotal
@@ -34,11 +35,17 @@ export const useCartStore = defineStore('cart', {
           icon: product.icon,
           quantity: 1,
           price: finalPrice,
-          basePrice: product.price,
           selectedSize: selectedSize.name,
-          selectedToppings: selectedToppings.map((item) => item.name),
+          selectedToppings: toppingNames,
           priceLabel: '小冯请客'
         })
+      }
+    },
+    addCartItem(cartItem) {
+      const existingItem = this.items.find((item) => item.cartKey === cartItem.cartKey)
+
+      if (existingItem) {
+        existingItem.quantity += 1
       }
     },
     removeFromCart(cartKey) {
