@@ -25,7 +25,7 @@
             <div class="item-actions">
               <button type="button" @click="cartStore.removeFromCart(item.cartKey)">-</button>
               <span>{{ item.quantity }}</span>
-              <button type="button" @click="cartStore.addToCart({ id: item.id, name: item.name, icon: item.icon, price: item.basePrice, sizes: [{ name: item.selectedSize, price: item.price - item.selectedToppings.length * 0 }], toppings: [] }, { selectedSize: { name: item.selectedSize, price: item.price - 0 }, selectedToppings: [] })">+</button>
+              <button type="button" @click="cartStore.addCartItem(item)">+</button>
             </div>
           </div>
         </div>
