@@ -24,12 +24,13 @@ export const siteConfig = {
     orders: '我的订单'
   },
   labels: {
-    treatTag: '小冯请客',
-    selectedSummary: '已选',
+    priceText: '小冯请客',
     checkoutAction: '去结算',
     cartEmpty: '购物车还是空的，先去挑一杯吧。',
     cartTitle: '订单清单',
     cartTotal: '合计',
-    cartSubmit: '确认下单'
+    cartSubmit: '确认下单',
+    specTitle: '选规格',
+    toppingTitle: '加配料'
   }
 }
