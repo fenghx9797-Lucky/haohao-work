@@ -11,21 +11,21 @@
     <section v-if="cartStore.items.length" class="cart-list">
       <article
         v-for="item in cartStore.items"
-        :key="item.id"
+        :key="item.cartKey"
         class="cart-item-card"
       >
         <div class="cart-item-card__icon">{{ item.icon }}</div>
         <div class="cart-item-card__content">
           <div class="cart-item-card__row">
             <h3>{{ item.name }}</h3>
-            <strong>￥{{ item.price * item.quantity }}</strong>
+            <strong>{{ siteConfig.labels.priceText }}</strong>
           </div>
-          <p>{{ siteConfig.labels.treatTag }} · 单价 ￥{{ item.price }}</p>
+          <p>{{ item.selectedSize }}<template v-if="item.selectedToppings.length"> · {{ item.selectedToppings.join('、') }}</template></p>
           <div class="cart-item-card__footer">
             <div class="item-actions">
-              <button type="button" @click="cartStore.removeFromCart(item.id)">-</button>
+              <button type="button" @click="cartStore.removeFromCart(item.cartKey)">-</button>
               <span>{{ item.quantity }}</span>
-              <button type="button" @click="cartStore.addToCart(item)">+</button>
+              <button type="button" @click="cartStore.addToCart({ id: item.id, name: item.name, icon: item.icon, price: item.basePrice, sizes: [{ name: item.selectedSize, price: item.price - item.selectedToppings.length * 0 }], toppings: [] }, { selectedSize: { name: item.selectedSize, price: item.price - 0 }, selectedToppings: [] })">+</button>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
       <section v-if="cartStore.totalCount" class="summary-dock">
         <div class="summary-dock__meta">
           <span>{{ siteConfig.labels.cartTotal }}</span>
-          <strong>￥{{ cartStore.totalPrice }}</strong>
+          <strong>{{ siteConfig.labels.priceText }}</strong>
           <small>共 {{ cartStore.totalCount }} 杯</small>
         </div>
         <button class="submit-btn" @click="handleConfirm">
@@ -74,7 +74,7 @@ const handleConfirm = () => {
 <style scoped>
 .cart-page {
   min-height: 100%;
-  padding-bottom: 118px;
+  padding-bottom: 140px;
   display: grid;
   gap: 14px;
 }
@@ -160,7 +160,7 @@ const handleConfirm = () => {
 
 .cart-item-card__row strong {
   color: #c97f90;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .cart-item-card__content p {
@@ -224,7 +224,7 @@ const handleConfirm = () => {
 .summary-dock {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
-  bottom: calc(70px + env(safe-area-inset-bottom));
+  bottom: calc(92px + env(safe-area-inset-bottom));
   left: max(16px, env(safe-area-inset-left));
   width: auto;
   max-width: 398px;
@@ -239,7 +239,7 @@ const handleConfirm = () => {
   border: 1px solid rgba(227, 208, 210, 0.46);
   box-shadow: 0 18px 36px rgba(191, 178, 180, 0.14);
   backdrop-filter: blur(14px);
-  z-index: 25;
+  z-index: 20;
 }
 
 .summary-dock__meta {
@@ -254,7 +254,7 @@ const handleConfirm = () => {
 
 .summary-dock__meta strong {
   color: #c87f90;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1.1;
 }
 
