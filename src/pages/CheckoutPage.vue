@@ -3,8 +3,7 @@
     <div class="success-card">
       <div class="success-mark">✓</div>
       <p class="success-eyebrow">下单成功</p>
-      <h1>奶茶已经加入制作队列</h1>
-      <p class="success-desc">预计 12 分钟左右可取餐，到店后报取餐码就可以啦。</p>
+      <h1>您已成功点单，耐心等待火速送达</h1>
     </div>
 
     <section v-if="lastOrder" class="detail-card">
@@ -65,9 +64,9 @@ const { lastOrder } = storeToRefs(cartStore)
 .items-card {
   padding: 20px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(255, 176, 203, 0.34);
-  box-shadow: 0 14px 32px rgba(220, 145, 174, 0.15);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  box-shadow: 0 14px 32px rgba(191, 178, 180, 0.1);
   backdrop-filter: blur(14px);
 }
 
@@ -77,16 +76,16 @@ const { lastOrder } = storeToRefs(cartStore)
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #ff9abd, #ff79a6);
+  background: linear-gradient(135deg, #edb2bc, #d994a5);
   color: #fff;
   font-size: 26px;
   font-weight: 800;
-  box-shadow: 0 12px 24px rgba(239, 115, 163, 0.24);
+  box-shadow: 0 12px 24px rgba(191, 171, 175, 0.18);
 }
 
 .success-eyebrow {
   margin: 16px 0 8px;
-  color: #d0658f;
+  color: #b97d8c;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -95,12 +94,7 @@ const { lastOrder } = storeToRefs(cartStore)
 .success-card h1,
 .items-card h2 {
   margin: 0;
-  color: #6d4c5b;
-}
-
-.success-desc {
-  margin: 10px 0 0;
-  color: #896c7b;
+  color: #67575e;
 }
 
 .detail-card,
@@ -119,11 +113,11 @@ const { lastOrder } = storeToRefs(cartStore)
 
 .detail-row span,
 .items-row span {
-  color: #8b6d7d;
+  color: #8d7f83;
 }
 
 .pickup-code {
-  color: #ea5f90;
+  color: #c97f90;
   font-size: 24px;
 }
 
@@ -144,8 +138,8 @@ const { lastOrder } = storeToRefs(cartStore)
 }
 
 .secondary-button {
-  background: rgba(255, 255, 255, 0.84);
-  border: 1px solid rgba(255, 177, 203, 0.36);
-  color: #8b6478;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(227, 208, 210, 0.46);
+  color: #836f76;
 }
 </style>
