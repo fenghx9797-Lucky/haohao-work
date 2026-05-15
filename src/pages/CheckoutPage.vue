@@ -21,7 +21,7 @@
       </div>
       <div class="detail-row">
         <span>订单金额</span>
-        <strong>￥{{ lastOrder.totalPrice }}</strong>
+        <strong>{{ siteConfig.labels.priceText }}</strong>
       </div>
       <div class="detail-row">
         <span>下单时间</span>
@@ -31,9 +31,9 @@
 
     <section v-if="lastOrder" class="items-card">
       <h2>本次饮品</h2>
-      <div v-for="item in lastOrder.items" :key="item.id" class="items-row">
-        <span>{{ item.name }} x {{ item.quantity }}</span>
-        <strong>￥{{ item.price * item.quantity }}</strong>
+      <div v-for="item in lastOrder.items" :key="item.cartKey" class="items-row">
+        <span>{{ item.name }} · {{ item.selectedSize }}<template v-if="item.selectedToppings.length"> · {{ item.selectedToppings.join('、') }}</template> x {{ item.quantity }}</span>
+        <strong>{{ siteConfig.labels.priceText }}</strong>
       </div>
     </section>
 
@@ -47,6 +47,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
+import { siteConfig } from '../config/site'
 import { useCartStore } from '../stores/cart'
 
 const cartStore = useCartStore()
