@@ -81,29 +81,17 @@ textarea {
   flex-direction: column;
 }
 
-.mobile-frame::before,
-.mobile-frame::after {
+.mobile-frame::before {
   content: "";
   position: absolute;
-  border-radius: 999px;
-  pointer-events: none;
-  filter: blur(2px);
-}
-
-.mobile-frame::before {
   top: 72px;
   right: -22px;
   width: 110px;
   height: 110px;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(2px);
   background: rgba(245, 228, 231, 0.44);
-}
-
-.mobile-frame::after {
-  left: -34px;
-  bottom: 160px;
-  width: 132px;
-  height: 132px;
-  background: rgba(245, 239, 236, 0.68);
 }
 
 .mobile-frame--splash {
